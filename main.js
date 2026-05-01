@@ -132,6 +132,57 @@ var App = (function () {
         '</section>';
     }
 
+    function renderCatalogPage() {
+        var state = AppState.getState();
+        var contentMarkup;
+
+        if (state.apiLoading === true) {
+            contentMarkup = '<div class="loading-indicator">Завантаження...</div>';
+        } else if (state.apiError !== null) {
+            contentMarkup = '<div class="error-message">' +
+                escapeHtml(state.apiError) +
+                '<br><button class="retry-button" id="retry-button">Спробувати знову</button>' +
+            '</div>';
+        } else if (state.apiProducts.length > 0) {
+            var cardsMarkup = state.apiProducts.map(function (product) {
+                var priceText = "$" + Number(product.price).toFixed(2);
+                return '<article class="card">' +
+                    '<h3>' + escapeHtml(product.title) + '</h3>' +
+                    '<p>' + escapeHtml(product.description) + '</p>' +
+                    '<span class="card-price">' + priceText + '</span>' +
+                    '<div class="card-rating">Рейтинг: ' + escapeHtml(String(product.rating)) + '</div>' +
+                '</article>';
+            }).join('');
+            contentMarkup = '<div class="cards-grid">' + cardsMarkup + '</div>';
+        } else {
+            contentMarkup = '<div class="loading-indicator">Завантаження...</div>';
+        }
+
+        return '<section class="catalog-section">' +
+            '<h2>Каталог товарів</h2>' +
+            contentMarkup +
+        '</section>';
+    }
+
+    async function loadCatalogData() {
+        AppState.setState({
+            apiLoading: true,
+            apiError: null
+        });
+        try {
+            var products = await ApiService.fetchProducts();
+            AppState.setState({
+                apiLoading: false,
+                apiProducts: products
+            });
+        } catch (error) {
+            AppState.setState({
+                apiLoading: false,
+                apiError: error.message
+            });
+        }
+    }
+
     function escapeHtml(text) {
         var tempDiv = document.createElement("div");
         tempDiv.textContent = text;
@@ -146,6 +197,8 @@ var App = (function () {
                 return renderAboutPage();
             case "/contacts":
                 return renderContactsPage();
+            case "/catalog":
+                return renderCatalogPage();
             default:
                 return renderHomePage();
         }
@@ -166,7 +219,8 @@ var App = (function () {
             "/": "Бруко - Кав'ярня",
             "/menu": "Меню - Бруко",
             "/about": "Про нас - Бруко",
-            "/contacts": "Контакти - Бруко"
+            "/contacts": "Контакти - Бруко",
+            "/catalog": "Каталог - Бруко"
         };
         document.title = titles[path] || "Бруко - Кав'ярня";
     }
@@ -180,6 +234,19 @@ var App = (function () {
 
         if (path === "/contacts") {
             attachFormHandlers();
+        }
+
+        if (path === "/catalog") {
+            var currentState = AppState.getState();
+            if (currentState.apiProducts.length === 0 && currentState.apiLoading === false && currentState.apiError === null) {
+                loadCatalogData();
+            }
+            var retryButton = document.getElementById("retry-button");
+            if (retryButton) {
+                retryButton.addEventListener("click", function () {
+                    loadCatalogData();
+                });
+            }
         }
     }
 

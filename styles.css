@@ -116,6 +116,63 @@ header {
     margin: 0 auto;
 }
 
+.catalog-section {
+    padding: 100px 16px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.catalog-section h2 {
+    text-align: center;
+    font-size: 29px;
+    margin-bottom: 32px;
+    color: #2c1a0e;
+}
+
+.loading-indicator {
+    text-align: center;
+    padding: 60px 16px;
+    font-size: 18px;
+    color: #6b5344;
+}
+
+.error-message {
+    text-align: center;
+    padding: 40px 16px;
+    font-size: 16px;
+    color: #c0392b;
+    background-color: #fdecea;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.retry-button {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 24px;
+    font-family: "Georgia", serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #2c1a0e;
+    background-color: #d4a574;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.retry-button:hover {
+    background-color: #c4955e;
+}
+
+.card-rating {
+    font-size: 14px;
+    color: #6b5344;
+    margin-top: 4px;
+}
+
 .menu-section h2 {
     text-align: center;
     font-size: 29px;
@@ -442,6 +499,14 @@ footer {
         font-size: 32px;
     }
 
+    .catalog-section {
+        padding: 120px 24px 80px;
+    }
+
+    .catalog-section h2 {
+        font-size: 32px;
+    }
+
     .cards-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
@@ -487,6 +552,10 @@ footer {
     }
 
     .menu-section {
+        padding: 120px 32px 100px;
+    }
+
+    .catalog-section {
         padding: 120px 32px 100px;
     }
 

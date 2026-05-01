@@ -1,7 +1,10 @@
 var AppState = (function () {
     var state = {
         currentPage: "/",
-        formMessages: []
+        formMessages: [],
+        apiProducts: [],
+        apiLoading: false,
+        apiError: null
     };
 
     var listeners = [];
