@@ -173,6 +173,17 @@ header {
     margin-top: 4px;
 }
 
+.card-image {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    aspect-ratio: 1;
+    object-fit: contain;
+    background-color: #f5f0eb;
+}
+
 .menu-section h2 {
     text-align: center;
     font-size: 29px;

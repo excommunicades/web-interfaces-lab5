@@ -18,6 +18,7 @@ var CardComponent = (function () {
     function renderProductCard(props) {
         var priceText = "$" + Number(props.price).toFixed(2);
         return '<article class="card">' +
+            '<img src="' + escapeHtml(props.thumbnail) + '" alt="' + escapeHtml(props.title) + '" class="card-image" loading="lazy" width="200" height="200">' +
             '<h3>' + escapeHtml(props.title) + '</h3>' +
             '<p>' + escapeHtml(props.description) + '</p>' +
             '<span class="card-price">' + priceText + '</span>' +

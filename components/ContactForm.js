@@ -2,6 +2,18 @@ var ContactFormComponent = (function () {
 
     var EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    function debounce(func, delay) {
+        var timerId;
+        return function () {
+            var context = this;
+            var args = arguments;
+            clearTimeout(timerId);
+            timerId = setTimeout(function () {
+                func.apply(context, args);
+            }, delay);
+        };
+    }
+
     function render() {
         return '<div class="feedback-form-wrapper">' +
             '<h3 class="form-title">Напишіть нам</h3>' +
@@ -74,15 +86,15 @@ var ContactFormComponent = (function () {
         var successBlock = document.getElementById("success-message");
         var submitButton = document.getElementById("submit-button");
 
-        nameInput.addEventListener("input", function () {
+        nameInput.addEventListener("input", debounce(function () {
             validateField(nameInput, nameError, checkNameValue);
-        });
-        emailInput.addEventListener("input", function () {
+        }, 300));
+        emailInput.addEventListener("input", debounce(function () {
             validateField(emailInput, emailError, checkEmailValue);
-        });
-        messageInput.addEventListener("input", function () {
+        }, 300));
+        messageInput.addEventListener("input", debounce(function () {
             validateField(messageInput, messageError, checkMessageValue);
-        });
+        }, 300));
 
         submitButton.addEventListener("click", function () {
             successBlock.classList.add("hidden");

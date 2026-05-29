@@ -1,6 +1,7 @@
 var App = (function () {
 
     var appContainer = document.getElementById("app");
+    var lastRenderedPath = null;
 
     var pageMap = {
         "/menu": MenuPage,
@@ -29,12 +30,17 @@ var App = (function () {
 
     function render(state) {
         var path = state.currentPage;
+        var isNewPage = (path !== lastRenderedPath);
         var page = pageMap[path] || HomePage;
 
         appContainer.innerHTML = page.render();
-        updateActiveLink(path);
-        document.title = titleMap[path] || titleMap["/"];
-        window.scrollTo(0, 0);
+
+        if (isNewPage) {
+            lastRenderedPath = path;
+            updateActiveLink(path);
+            document.title = titleMap[path] || titleMap["/"];
+            window.scrollTo(0, 0);
+        }
 
         if (page.afterRender) {
             page.afterRender();
