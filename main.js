@@ -22,8 +22,10 @@ var App = (function () {
         var allLinks = document.querySelectorAll("[data-route]");
         allLinks.forEach(function (link) {
             link.classList.remove("active");
+            link.removeAttribute("aria-current");
             if (link.getAttribute("data-route") === path) {
                 link.classList.add("active");
+                link.setAttribute("aria-current", "page");
             }
         });
     }

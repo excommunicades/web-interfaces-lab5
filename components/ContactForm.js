@@ -20,22 +20,22 @@ var ContactFormComponent = (function () {
             '<form id="feedback-form" novalidate>' +
                 '<div class="form-group">' +
                     '<label for="user-name">Ім\'я</label>' +
-                    '<input type="text" id="user-name" name="name" placeholder="Ваше ім\'я">' +
-                    '<span class="field-error" id="name-error"></span>' +
+                    '<input type="text" id="user-name" name="name" placeholder="Ваше ім\'я" aria-describedby="name-error">' +
+                    '<span class="field-error" id="name-error" role="alert" aria-live="assertive"></span>' +
                 '</div>' +
                 '<div class="form-group">' +
                     '<label for="user-email">Email</label>' +
-                    '<input type="email" id="user-email" name="email" placeholder="example@mail.com">' +
-                    '<span class="field-error" id="email-error"></span>' +
+                    '<input type="email" id="user-email" name="email" placeholder="example@mail.com" aria-describedby="email-error">' +
+                    '<span class="field-error" id="email-error" role="alert" aria-live="assertive"></span>' +
                 '</div>' +
                 '<div class="form-group">' +
                     '<label for="user-message">Повідомлення</label>' +
-                    '<textarea id="user-message" name="message" rows="4" placeholder="Ваше повідомлення..."></textarea>' +
-                    '<span class="field-error" id="message-error"></span>' +
+                    '<textarea id="user-message" name="message" rows="4" placeholder="Ваше повідомлення..." aria-describedby="message-error"></textarea>' +
+                    '<span class="field-error" id="message-error" role="alert" aria-live="assertive"></span>' +
                 '</div>' +
                 '<button type="submit" class="form-submit" id="submit-button">Надіслати</button>' +
             '</form>' +
-            '<div class="form-success hidden" id="success-message">Дякуємо! Ваше повідомлення надіслано.</div>' +
+            '<div class="form-success hidden" id="success-message" role="status" aria-live="polite">Дякуємо! Ваше повідомлення надіслано.</div>' +
         '</div>';
     }
 
